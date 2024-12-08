@@ -4,6 +4,40 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        
+        <div class="card">
+            <h2>Explanation</h2>
+            <p>
+                Boids function under 3 basic rules, seperation, alignment and cohesion. Seperation defines how each boid turns away from nearby boids, alignment defines how each boid aligns with the average direction of nearby boids and cohesion defines how boids move towards the center of nearby boids. These 3 basic rules make boids
+                have a flocking behavior that mimics how birds, fish and other animals move.
+            </p>
+        </div>
+        <div class="card">
+            <h2>Implementation</h2>
+            <p>Anyone is able to add this implementation of boids into their own project. To do this add the link element shown below into your HTML file's header, and add the script into the body. You can then adjust the variables to achieve the result you desire.</p>
+            <div class="code">
+                <pre>
+&#60;link rel="stylesheet" href="https://boids.tgreenhagen.com/boids.css"&#62;
+</pre>
+            </div>
+            <div class="code">
+                <pre>
+&#60;script src="https://boids.tgreenhagen.com/boids.js"&#62;&#60;/script&#62;
+&#60;script&#62;
+    init_boids(num_boids = 250, 
+        update_frequency = 1, 
+        flock_size = 100,
+        minimum_distance = 20, 
+        seperation_strength = 0.025, 
+        alignement_strength = 0.01, 
+        cohesion_strength = 0.00025, 
+        boid_speed = 1, 
+        area_x = window.innerWidth, 
+        area_y = window.innerHeight, 
+        parent = document.body, 
+        id = "boid");
+&#60;/script&#62;
+</pre>
+            </div>
+        </div>
     </body>
 </html>

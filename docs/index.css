@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.card {
+    width: 75%;
+
+    background: rgb(215, 215, 215);
+
+    border-radius: 10px;
+
+    padding: 10px;
+
+    margin-top: 25px;
+
+    font-family: sans-serif;
+}
+
+.card h2 {
+    margin: 0px;
+}
+
+.card p {
+    margin-top: 10px;
+}
+
+.code {
+    width: calc(100% - 20px);
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(235, 235, 235);
+
+    border-radius: 5px;
+
+    padding: 10px;
+
+    margin-top: 15px;
+}
+
+pre {
+    padding: 0px;
+    margin: 0px;
+}
