@@ -13,7 +13,7 @@ function radians(degrees) {
 }
 
 class boid {
-    constructor (flock_size, seperation_strength, alignment_strength, cohesion_strength, speed) {
+    constructor (flock_size, seperation_strength, alignment_strength, cohesion_strength, speed, ax, ay) {
         // Initialize position and rotation
         this._x = Math.random()*window.innerWidth;
         this._y = Math.random()*window.innerHeight;
@@ -25,6 +25,8 @@ class boid {
         this.alignment_strength = alignment_strength;
         this.cohesion_strength = cohesion_strength;
         this.speed = speed;
+        this.ax = ax;
+        this.ay = ay;
 
         // Initialize model
         var model = document.createElement('div');
@@ -111,24 +113,24 @@ class boid {
         // Update Rotation and Position
         this._rotation += direction_update;
         this._x += Math.cos(radians(this.rotation)) * this.speed;
-        this._y -= Math.sin(radians(this.rotation)) * this.speed;
+        this._y += Math.sin(radians(this.rotation)) * this.speed;
 
         if (this.x < 10) {
-            this._x = window.innerWidth-10;
-        } else if (this.x > window.innerWidth-10) {
+            this._x = this.ax-10;
+        } else if (this.x > this.ax-10) {
             this._x = 10;
         }
 
         if (this.y < 10) {
-            this._y = window.innerHeight-10;
-        } else if (this.y > window.innerHeight-10) {
+            this._y = this.ay-10;
+        } else if (this.y > this.ay-10) {
             this._y = 10;
         }
 
-        this.model.style.top = `${this.x}px`
-        this.model.style.left = `${this.y}px`
+        this.model.style.top = `${this.y}px`
+        this.model.style.left = `${this.x}px`
 
-        this.model.style.transform = `rotateZ(${this.rotation+180}deg)`
+        this.model.style.transform = `rotateZ(${this.rotation+90}deg)`
     }
 }
 
@@ -138,9 +140,9 @@ function update_boids() {
     });
 }
 
-function init_boids(num_boids, update_frequency, flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed) {
+function init_boids(num_boids, update_frequency, flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y) {
     for (i = 0; i < num_boids; i++) { 
-        boids.push(new boid(flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed));
+        boids.push(new boid(flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y));
     }
 
     setInterval(update_boids, update_frequency);
