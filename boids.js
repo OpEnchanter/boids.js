@@ -13,7 +13,7 @@ function radians(degrees) {
 }
 
 class boid {
-    constructor (flock_size, seperation_strength, alignment_strength, cohesion_strength, speed, ax, ay) {
+    constructor (flock_size, seperation_strength, alignment_strength, cohesion_strength, speed, ax, ay, parent) {
         // Initialize position and rotation
         this._x = Math.random()*window.innerWidth;
         this._y = Math.random()*window.innerHeight;
@@ -31,7 +31,7 @@ class boid {
         // Initialize model
         var model = document.createElement('div');
         model.id = "boid";
-        this.model = document.body.appendChild(model);
+        this.model = parent.appendChild(model);
 
     }
 
@@ -144,9 +144,9 @@ function update_boids() {
     });
 }
 
-function init_boids(num_boids, update_frequency, flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y) {
+function init_boids(num_boids, update_frequency, flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y, parent) {
     for (i = 0; i < num_boids; i++) { 
-        boids.push(new boid(flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y));
+        boids.push(new boid(flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y, parent));
     }
 
     setInterval(update_boids, update_frequency);
