@@ -58,24 +58,6 @@ class boid {
             }
         });
 
-        // Seperation
-        var angles = [];
-        nearby_boids.forEach(boid => {
-            var x = boid.x - this.x;
-            var y = boid.y - this.y;
-            angles.push(degrees(Math.atan2(y, x)));
-        });
-
-        var angle_sum = 0;
-        angles.forEach(angle => {
-            angle_sum += angle;
-        });
-
-        var average_heading = angle_sum / angles.length;
-
-        direction_update += ((average_heading + 360) % 360) * this.seperation_strength;
-
-
         // Alignment
         var boid_directions = [];
         nearby_boids.forEach(boid => {
@@ -108,6 +90,9 @@ class boid {
 
         var dir = degrees(Math.atan2(vy, vx));
         direction_update += dir * this.cohesion_strength;
+
+        // Seperation
+        direction_update += -dir * this.seperation_strength * dist(this.x, this.y, xavg, yavg)
         
 
         // Update Rotation and Position
