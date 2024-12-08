@@ -13,11 +13,11 @@ function radians(degrees) {
 }
 
 class boid {
-    constructor (flock_size, seperation_strength, alignment_strength, cohesion_strength, speed, ax, ay, parent, id) {
+    constructor (flock_size, min_dist, seperation_strength, alignment_strength, cohesion_strength, speed, ax, ay, parent, id) {
         // Initialize position and rotation
         this._x = Math.random()*window.innerWidth;
         this._y = Math.random()*window.innerHeight;
-        this._rotation = 0;
+        this._rotation = Math.random()*360;
 
         // Boid behavior functions
         this.flock_size = flock_size;
@@ -27,6 +27,7 @@ class boid {
         this.speed = speed;
         this.ax = ax;
         this.ay = ay;
+        this.min_seperation_dist = min_dist;
 
         // Initialize model
         var model = document.createElement('div');
@@ -92,7 +93,12 @@ class boid {
         direction_update += dir * this.cohesion_strength;
 
         // Seperation
-        direction_update += -dir * this.seperation_strength * dist(this.x, this.y, xavg, yavg)
+        nearby_boids.forEach(boid => {
+            if (dist(this.x, this.y, boid.x, boid.y) < this.min_seperation_dist) {
+                var angle = Math.atan2(boid.y - this.y, boid.x - this.x);
+                direction_update += angle * this.seperation_strength;
+            }
+        });
         
 
         // Update Rotation and Position
@@ -129,9 +135,9 @@ function update_boids() {
     });
 }
 
-function init_boids(num_boids, update_frequency, flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y, parent, id) {
+function init_boids(num_boids, update_frequency, flock_size, mimimum_distance, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y, parent, id) {
     for (i = 0; i < num_boids; i++) { 
-        boids.push(new boid(flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y, parent, id));
+        boids.push(new boid(flock_size, mimimum_distance, seperation_strength, alignment_strength, cohesion_strength, boid_speed, area_x, area_y, parent, id));
     }
 
     setInterval(update_boids, update_frequency);
