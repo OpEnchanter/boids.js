@@ -143,7 +143,5 @@ function init_boids(num_boids, update_frequency, flock_size, seperation_strength
         boids.push(new boid(flock_size, seperation_strength, alignment_strength, cohesion_strength, boid_speed));
     }
 
-    //setInterval(update_boids, update_frequency);\
-
-    update_boids()
+    setInterval(update_boids, update_frequency);
 }
