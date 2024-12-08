@@ -11,5 +11,7 @@ body {
     border-color: transparent;
     border-bottom: 20px solid red;
 
+    border-radius: 2px;
+
     position: absolute;
 }
