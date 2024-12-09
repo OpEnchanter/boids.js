@@ -90,13 +90,13 @@ class boid {
         var vy = yavg - this.y;
 
         var dir = degrees(Math.atan2(vy, vx));
-        direction_update += dir * this.cohesion_strength;
+        direction_update += (dir - this.rotation) * this.cohesion_strength;
 
         // Seperation
         nearby_boids.forEach(boid => {
             if (dist(this.x, this.y, boid.x, boid.y) < this.min_seperation_dist) {
                 var angle = Math.atan2(boid.y - this.y, boid.x - this.x);
-                direction_update += angle * this.seperation_strength;
+                direction_update += (angle - this.rotation) * this.seperation_strength;
             }
         });
         
