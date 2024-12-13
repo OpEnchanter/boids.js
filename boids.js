@@ -54,7 +54,7 @@ class boid {
         // Get Nearby Boids
         var nearby_boids = [];
         boids.forEach(boid => {
-            if (dist(this.x, this.y, boid.x, boid.y) <= this.flock_size) {
+            if (dist(this.x, this.y, boid.x, boid.y) <= this.flock_size && boid != this) {
                 nearby_boids.push(boid);
             }
         });
