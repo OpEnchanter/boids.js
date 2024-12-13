@@ -59,46 +59,48 @@ class boid {
             }
         });
 
-        // Alignment
-        var boid_directions = [];
-        nearby_boids.forEach(boid => {
-            boid_directions.push(boid.rotation);
-        });
+        if (nearby_boids.length > 0) {
+            // Alignment
+            var boid_directions = [];
+            nearby_boids.forEach(boid => {
+                boid_directions.push(boid.rotation);
+            });
 
-        var sum = 0;
-        boid_directions.forEach(dir => {
-            sum += dir;
-        });
+            var sum = 0;
+            boid_directions.forEach(dir => {
+                sum += dir;
+            });
 
-        var average_direction = sum / boid_directions.length;
-        direction_update += (average_direction - this.rotation) * this.alignment_strength;
+            var average_direction = sum / boid_directions.length;
+            direction_update += (average_direction - this.rotation) * this.alignment_strength;
 
 
-        // Cohesion
-        var xsum = 0;
-        var ysum = 0;
+            // Cohesion
+            var xsum = 0;
+            var ysum = 0;
 
-        nearby_boids.forEach(boid => {
-            xsum += boid.x;
-            ysum += boid.y;
-        });
+            nearby_boids.forEach(boid => {
+                xsum += boid.x;
+                ysum += boid.y;
+            });
 
-        var xavg = xsum / nearby_boids.length;
-        var yavg = ysum / nearby_boids.length;
+            var xavg = xsum / nearby_boids.length;
+            var yavg = ysum / nearby_boids.length;
 
-        var vx = xavg - this.x;
-        var vy = yavg - this.y;
+            var vx = xavg - this.x;
+            var vy = yavg - this.y;
 
-        var dir = degrees(Math.atan2(vy, vx));
-        direction_update += (dir - this.rotation) * this.cohesion_strength;
+            var dir = degrees(Math.atan2(vy, vx));
+            direction_update += (dir - this.rotation) * this.cohesion_strength;
 
-        // Seperation
-        nearby_boids.forEach(boid => {
-            if (dist(this.x, this.y, boid.x, boid.y) < this.min_seperation_dist) {
-                var angle = Math.atan2(boid.y - this.y, boid.x - this.x);
-                direction_update += (angle - this.rotation) * this.seperation_strength;
-            }
-        });
+            // Seperation
+            nearby_boids.forEach(boid => {
+                if (dist(this.x, this.y, boid.x, boid.y) < this.min_seperation_dist) {
+                    var angle = Math.atan2(boid.y - this.y, boid.x - this.x);
+                    direction_update += (angle - this.rotation) * this.seperation_strength;
+                }
+            });
+        }
         
 
         // Update Rotation and Position
